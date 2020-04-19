@@ -17,19 +17,6 @@
    <string notr="true">background-color: rgb(0, 0, 0);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QQuickWidget" name="graphWidget">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>160</y>
-      <width>801</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="resizeMode">
-     <enum>QQuickWidget::SizeRootObjectToView</enum>
-    </property>
-   </widget>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
@@ -590,13 +577,13 @@
      <attribute name="title">
       <string>Presion por tiempo</string>
      </attribute>
-     <widget class="QwtPlot" name="qwtPlot">
+     <widget class="PlotWidget" name="graphWidget" native="true">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>771</width>
-        <height>361</height>
+        <x>19</x>
+        <y>9</y>
+        <width>751</width>
+        <height>371</height>
        </rect>
       </property>
      </widget>
@@ -605,31 +592,11 @@
      <attribute name="title">
       <string>Presion por volumen</string>
      </attribute>
-     <widget class="QwtPlot" name="qwtPlot_2">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>761</width>
-        <height>361</height>
-       </rect>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
       <string>Flujo</string>
      </attribute>
-     <widget class="QwtPlot" name="qwtPlot_3">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>20</y>
-        <width>771</width>
-        <height>371</height>
-       </rect>
-      </property>
-     </widget>
     </widget>
    </widget>
   </widget>
@@ -653,14 +620,10 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QQuickWidget</class>
+   <class>PlotWidget</class>
    <extends>QWidget</extends>
-   <header>QtQuickWidgets/QQuickWidget</header>
-  </customwidget>
-  <customwidget>
-   <class>QwtPlot</class>
-   <extends>QFrame</extends>
-   <header>qwt_plot.h</header>
+   <header>pyqtgraph</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
