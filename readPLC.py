@@ -7,9 +7,9 @@ from db_layouts import tank_rc_if_db_layout
 
 
 
-client = snap7.client.Client()
-client.connect('192.168.0.1', 0, 3)
-
+def connect():
+    client = snap7.client.Client()
+    client.connect('192.168.0.1', 0, 3)
 
 def get_db1():
     """
@@ -223,7 +223,7 @@ def print_open():
         if row['BatchName']:
             print (row)
 
-
+#connect()
 #read_tank_db()
 #open_and_close()
 #open_and_close_db1()

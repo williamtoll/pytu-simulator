@@ -1,3 +1,3 @@
 {
-    "files": ["main.py","mainwindow.py","mainwindow.ui","app.py","datetimeaxis.py","db_layouts.py","readPLC.py","utils.py"]
+    "files": ["utils.py","readPLC.py","datetimeaxis.py","db_layouts.py","mainwindow.ui","app.py","pytu.db","parameters.py","main.py","mainwindow.py","parameters.ui"]
 }

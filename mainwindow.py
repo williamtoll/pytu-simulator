@@ -7,6 +7,9 @@ import serial
 import time
 from random import randint
 from utils import TimeAxisItem, timestamp
+import parameters
+import snap7
+from snap7 import util
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -14,8 +17,19 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
 
+        self.pmax=60.0
+        self.pmin=10.0
+
+        self.pmaxRead=0.0
+
+
         #Load the UI Page
         uic.loadUi('mainwindow.ui', self)
+
+        #load default data
+        self.setInitialData()
+
+        self.pushButtonParameter.pressed.connect(self.openParameterWindow)
 
         ustring=' simple string'
         new_string=ustring.encode()
@@ -30,11 +44,11 @@ class MainWindow(QtWidgets.QMainWindow):
         #self.plot([1,2,3,4,5,6,7,8,9,10], [30,32,34,32,33,31,29,32,35,45])
 
         self.graphWidget = pg.PlotWidget(
-        title="Pressure vs Time",
+        title="Presión",
         labels={'left': 'Pressure'},
         axisItems={'bottom': TimeAxisItem(orientation='bottom')}
         )
-        self.setCentralWidget(self.graphWidget)
+        #self.setCentralWidget(self.graphWidget)
 
         self.graphWidget.setTitle("Presion vs Volumen");
 
@@ -59,7 +73,60 @@ class MainWindow(QtWidgets.QMainWindow):
         self.timer.timeout.connect(self.update_plot_data)
         self.timer.start()
 
+    def setInitialData(self):
+        self.labelPmax.setStyleSheet("background-color: rgb(186, 189, 182); font-size:36pt; font-weight:600; color:#204a87;")
+        self.labelPmax.setText(str(self.pmaxRead))
 
+        #Read Data from PLC
+
+        self.connectToPLC()
+
+        pressure=readPLC.get_db_row("","","")
+
+
+
+    def connectToPLC(self):
+        t = time.time()
+        print("begin: %s", %(t))
+        client = snap7.client.Client()
+        client.connect('192.168.0.1', 0, 1)
+
+        db1 = make_item_db(1)
+        all_data = db1._bytearray
+        dbnumber=1
+
+        size=1
+        self.write_data_db(1,all_data,size)
+
+        db1=self.get_db_row(1,0,2)
+        print("db1 ",db1)
+
+        print("end: %s", %(time.time()-t))
+
+
+    def write_data_db(self,dbnumber, all_data, size):
+        area = snap7.snap7types.S7AreaDB
+        dbnumber = 1
+        client.write_area(area, dbnumber, 0, size, all_data)
+
+    def get_db_row(self,db, start, size):
+        """
+        Here you see and example of readying out a part of a DB
+        Args:
+            db (int): The db to use
+            start (int): The index of where to start in db data
+            size (int): The size of the db data to read
+        """
+        type_ = snap7.snap7types.wordlen_to_ctypes[snap7.snap7types.S7WLByte]
+        data = client.db_read(db, start, type_, size)
+        # print_row(data[:60])
+        return data
+
+    def openParameterWindow(self):
+        app= QtWidgets.QApplication(sys.argv)
+        main=Parameters()
+        main.show()
+        #sys.exit(app.exec_())
 
     def plot(self, presure, time):
         self.graphWidget.plot(presure, time)
@@ -86,6 +153,36 @@ class MainWindow(QtWidgets.QMainWindow):
         p=p-0.04
 
         toCmH20=p*10.19716
+
+        toCmH20=round(toCmH20,2)
+
+        if toCmH20>self.pmaxRead:
+            self.pmaxRead=toCmH20
+            self.labelPmax.setStyleSheet("background-color: rgb(186, 189, 182); font-size:36pt; font-weight:600; color:#204a87; text-align:center")
+            self.labelPmax.setText(str(self.pmaxRead))
+
+        if toCmH20>self.pmax:
+           self.showAlarmMaxPressure()
+
+        if toCmH20<self.pmin:
+           self.showAlarmMinPressure()
+
+        self.labelVolume.setStyleSheet("background-color: rgb(186, 189, 182); font-size:36pt; font-weight:600; color:#204a87; text-align:center")
+        self.labelVolume.setText(str(450))
+
+
+        self.labelFreq.setStyleSheet("background-color: rgb(186, 189, 182); font-size:36pt; font-weight:600; color:#204a87; text-align:center")
+        self.labelFreq.setText(str(20))
+
+
+        self.labelPeep.setStyleSheet("background-color: rgb(186, 189, 182); font-size:36pt; font-weight:600; color:#204a87;")
+        self.labelPeep.setText(str(toCmH20))
+
+        self.labelInspEsp.setStyleSheet("background-color: rgb(186, 189, 182); font-size:36pt; font-weight:600; color:#204a87;")
+        self.labelInspEsp.setText(str(1)+":"+str(2))
+
+
+
         print("kPa ",p);
         print("cmH20 ",toCmH20)
 
@@ -110,6 +207,16 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.data_line.setData(self.x, self.y)  # Update the data.
 
+
+    def showAlarmMaxPressure(self):
+        green="background-color: rgb(115, 210, 22);"
+        red="background-color: rgb(239, 41, 41);"
+        self.groupBoxAlarm.setStyleSheet("background-color: rgb(239, 41, 41);")
+
+    def showAlarmMinPressure(self):
+        green="background-color: rgb(115, 210, 22);"
+        red="background-color: rgb(239, 41, 41);"
+        self.groupBoxAlarm.setStyleSheet("background-color: rgb(239, 41, 41);")
 
 def closeEvent(self,event):
     print("window closed")
