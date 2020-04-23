@@ -8,8 +8,8 @@ import time
 from random import randint
 from utils import TimeAxisItem, timestamp
 import parameters
-import snap7
-from snap7 import util
+#import snap7
+#from snap7 import util
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -30,6 +30,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setInitialData()
 
         self.pushButtonParameter.pressed.connect(self.openParameterWindow)
+
+        self.pushButtonResetAlarms.pressed.connect(self.resetAlarms)
 
         ustring=' simple string'
         new_string=ustring.encode()
@@ -66,10 +68,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
         pen = pg.mkPen(color=(255, 0, 0))
         self.data_line =  self.graphWidget.plot(self.x, self.y, pen=pen)
-               
         # ... init continued ...
         self.timer = QtCore.QTimer()
-        self.timer.setInterval(100)
+        self.timer.setInterval(500)
         self.timer.timeout.connect(self.update_plot_data)
         self.timer.start()
 
@@ -79,29 +80,28 @@ class MainWindow(QtWidgets.QMainWindow):
 
         #Read Data from PLC
 
-        self.connectToPLC()
+        #self.connectToPLC()
 
-        pressure=readPLC.get_db_row("","","")
 
 
 
     def connectToPLC(self):
         t = time.time()
-        print("begin: %s", %(t))
-        client = snap7.client.Client()
-        client.connect('192.168.0.1', 0, 1)
+        print("begin: %s" %(t))
+#        client = snap7.client.Client()
+#        client.connect('192.168.0.1', 0, 1)
 
-        db1 = make_item_db(1)
-        all_data = db1._bytearray
-        dbnumber=1
+        #db1 = make_item_db(1)
+        #all_data = db1._bytearray
+        #dbnumber=1
 
-        size=1
-        self.write_data_db(1,all_data,size)
+        #size=1
+        #self.write_data_db(1,all_data,size)
 
         db1=self.get_db_row(1,0,2)
-        print("db1 ",db1)
+ #       print("db1 ",db1)
 
-        print("end: %s", %(time.time()-t))
+  #      print("end: %s" %(time.time()-t))
 
 
     def write_data_db(self,dbnumber, all_data, size):
@@ -128,28 +128,30 @@ class MainWindow(QtWidgets.QMainWindow):
         main.show()
         #sys.exit(app.exec_())
 
+    def resetAlarms(self):
+        self.disableAlarmMaxPressure()
+        self.disableAlarmMinPressure()
     def plot(self, presure, time):
         self.graphWidget.plot(presure, time)
     def update_plot_data(self):
         print("update plot data")
         #read data from the sensor connected to Arduino
-#        ser = serial.Serial('/dev/pts/5',57600)
+        ser = serial.Serial('/dev/ttyACM0',57600)
+
 #        time.sleep(2)
 
-#        data=[]
-#        for i in range(50):
-#            b=ser.readline()
-#            string_n=b.decode()
-#            string=string_n.rstrip()
-#            flt=float(string)
-#            print(flt)
-#            data.append(flt)
-#            time.sleep(0.1)
+        b=ser.readline()
+        string_n=b.decode()
+        string=string_n.rstrip()
+        print(string)
+        flt=int(string)
+        print(flt)
+        time.sleep(0.1)
 #        ser.close()
 
         #calculus of pressure
-        a=48
-        p=(48/1023)/((4.7-0.2)*0.018)
+        a=flt
+        p=(a/1023)/((4.7-0.2)*0.018)
         p=p-0.04
 
         toCmH20=p*10.19716
@@ -161,11 +163,16 @@ class MainWindow(QtWidgets.QMainWindow):
             self.labelPmax.setStyleSheet("background-color: rgb(186, 189, 182); font-size:36pt; font-weight:600; color:#204a87; text-align:center")
             self.labelPmax.setText(str(self.pmaxRead))
 
+
         if toCmH20>self.pmax:
            self.showAlarmMaxPressure()
+        else:
+           self.disableAlarmMaxPressure()
 
         if toCmH20<self.pmin:
            self.showAlarmMinPressure()
+        else:
+           self.disableAlarmMinPressure()
 
         self.labelVolume.setStyleSheet("background-color: rgb(186, 189, 182); font-size:36pt; font-weight:600; color:#204a87; text-align:center")
         self.labelVolume.setText(str(450))
@@ -189,7 +196,7 @@ class MainWindow(QtWidgets.QMainWindow):
         sec='%s%s'%(time.localtime().tm_min,time.localtime().tm_sec)
         print ("time: %s",sec)
 
-        p=p+randint(0,100)
+#        p=p+randint(0,100)
 
         timeNow=time.localtime()
         timeNow=time.strftime("%d/%m/%Y %H:%M:%S",timeNow)
@@ -211,12 +218,30 @@ class MainWindow(QtWidgets.QMainWindow):
     def showAlarmMaxPressure(self):
         green="background-color: rgb(115, 210, 22);"
         red="background-color: rgb(239, 41, 41);"
-        self.groupBoxAlarm.setStyleSheet("background-color: rgb(239, 41, 41);")
+        self.groupBoxAlarm.setStyleSheet(red)
+        self.labelAlarma.setStyleSheet(" font-size:18pt; font-weight:600;")
+        self.labelAlarma.setText("ERROR")
 
     def showAlarmMinPressure(self):
         green="background-color: rgb(115, 210, 22);"
         red="background-color: rgb(239, 41, 41);"
-        self.groupBoxAlarm.setStyleSheet("background-color: rgb(239, 41, 41);")
+        self.groupBoxAlarm.setStyleSheet(red)
+        self.labelAlarma.setStyleSheet(" font-size:18pt; font-weight:600;")
+        self.labelAlarma.setText("ERROR")
+
+    def disableAlarmMaxPressure(self):
+        green="background-color: rgb(115, 210, 22);"
+        red="background-color: rgb(239, 41, 41);"
+        self.groupBoxAlarm.setStyleSheet(green)
+        self.labelAlarma.setStyleSheet(" font-size:18pt; font-weight:600;")
+        self.labelAlarma.setText("NORMAL")
+
+    def disableAlarmMinPressure(self):
+        green="background-color: rgb(115, 210, 22);"
+        red="background-color: rgb(239, 41, 41);"
+        self.groupBoxAlarm.setStyleSheet(green)
+        self.labelAlarma.setStyleSheet(" font-size:18pt; font-weight:600;")
+        self.labelAlarma.setText("ERROR")
 
 def closeEvent(self,event):
     print("window closed")

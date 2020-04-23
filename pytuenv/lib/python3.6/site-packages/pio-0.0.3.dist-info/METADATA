@@ -1,0 +1,57 @@
+Metadata-Version: 2.1
+Name: pio
+Version: 0.0.3
+Summary: A simplified, yarn-like alternative to pip.
+Home-page: https://github.com/Richienb/pio
+Author: Richie Bendall
+Author-email: richiebendall@gmail.com
+License: MIT License
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Natural Language :: English
+Classifier: Environment :: Plugins
+Classifier: Topic :: Internet
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Description-Content-Type: text/markdown
+
+# PIO
+
+A simplified, yarn-like alternative to pip.
+
+## Installation
+
+```sh
+pip install pio
+```
+
+## Usage
+
+```sh
+pio add example # Install example package
+pio remove example # Remove example package
+pio upgrade example # Upgrade example package (leave blank to upgrade all)
+pio install # Install all packages from pio.json
+```
+
+## Migrate from `requirements.txt`
+
+```sh
+pio migrate requirements.txt
+```
+
+## Programmatic usage
+
+```python
+import pio # Import PIO package
+pio.add("example") # Install example package
+pio.remove("example") # Remove example package
+pio.upgrade("example") # Upgrade example package (leave blank to upgrade all)
+pio.install() # Install all packages from pio.json
+```
+
+
