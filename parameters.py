@@ -8,6 +8,7 @@ from decimal import Decimal
 import sys
 import sqlite3
 
+
 class Parameters(QtWidgets.QMainWindow):
     def __init__(self, *args, **kwargs):
         super(Parameters, self).__init__(*args, **kwargs)
