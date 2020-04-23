@@ -99,9 +99,9 @@
     <widget class="QLabel" name="labelPeep">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>50</x>
        <y>60</y>
-       <width>81</width>
+       <width>151</width>
        <height>51</height>
       </rect>
      </property>
@@ -276,7 +276,7 @@
    <widget class="QGroupBox" name="groupBoxAlarm">
     <property name="geometry">
      <rect>
-      <x>420</x>
+      <x>290</x>
       <y>0</y>
       <width>211</width>
       <height>81</height>
@@ -288,7 +288,7 @@
     <property name="title">
      <string/>
     </property>
-    <widget class="QLabel" name="label_23">
+    <widget class="QLabel" name="labelAlarma">
      <property name="geometry">
       <rect>
        <x>50</x>
@@ -305,10 +305,10 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>200</y>
-      <width>801</width>
-      <height>431</height>
+      <x>10</x>
+      <y>160</y>
+      <width>811</width>
+      <height>471</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -330,6 +330,9 @@
         <height>371</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(211, 215, 207);</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
@@ -346,8 +349,8 @@
    <widget class="QPushButton" name="pushButtonParameter">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>20</y>
+      <x>680</x>
+      <y>780</y>
       <width>151</width>
       <height>51</height>
      </rect>
@@ -458,9 +461,9 @@ color: rgb(0, 0, 0);</string>
     <widget class="QLabel" name="labelPmax">
      <property name="geometry">
       <rect>
-       <x>70</x>
+       <x>40</x>
        <y>60</y>
-       <width>101</width>
+       <width>171</width>
        <height>51</height>
       </rect>
      </property>
@@ -487,6 +490,23 @@ color: rgb(0, 0, 0);</string>
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;cmH20&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
+   </widget>
+   <widget class="QPushButton" name="pushButtonResetAlarms">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>10</y>
+      <width>131</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(211, 215, 207);
+background-color: rgb(85, 87, 83);</string>
+    </property>
+    <property name="text">
+     <string>RESET ALARMA</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

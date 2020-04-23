@@ -17,7 +17,7 @@ void setup() {
 }
 
 void loop() {
-  float pressure = analogRead(sensorPin);
+  int pressure = analogRead(sensorPin);
   //Read every 500 ms
    if (millis() > ts + 500) {
        ts = millis();
