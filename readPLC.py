@@ -7,9 +7,8 @@ from db_layouts import tank_rc_if_db_layout
 
 
 
-def connect():
-    client = snap7.client.Client()
-    client.connect('192.168.0.1', 0, 3)
+client = snap7.client.Client()
+client.connect('192.168.0.1', 0, 1)
 
 def get_db1():
     """

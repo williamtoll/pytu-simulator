@@ -20,8 +20,8 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>530</y>
+      <x>350</x>
+      <y>400</y>
       <width>241</width>
       <height>161</height>
      </rect>
@@ -68,8 +68,8 @@
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>0</y>
+      <x>70</x>
+      <y>200</y>
       <width>241</width>
       <height>161</height>
      </rect>
@@ -132,8 +132,8 @@
    <widget class="QGroupBox" name="groupBox_6">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>360</y>
+      <x>70</x>
+      <y>400</y>
       <width>241</width>
       <height>161</height>
      </rect>
@@ -244,9 +244,9 @@
    <widget class="QGroupBox" name="groupBox_10">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>0</y>
-      <width>201</width>
+      <width>461</width>
       <height>141</height>
      </rect>
     </property>
@@ -261,7 +261,7 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>181</width>
+       <width>441</width>
        <height>121</height>
       </rect>
      </property>
@@ -269,16 +269,16 @@
       <string notr="true">background-color: rgb(238, 238, 236);</string>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:36pt; font-weight:600; color:#204a87;&quot;&gt;PYTU &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:36pt; font-weight:600; color:#204a87;&quot;&gt;MTeam&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:36pt; font-weight:600; color:#204a87;&quot;&gt;PYTU &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:36pt; font-weight:600; color:#204a87;&quot;&gt;Mechatronic Team&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBoxAlarm">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>520</x>
       <y>0</y>
-      <width>211</width>
+      <width>581</width>
       <height>81</height>
      </rect>
     </property>
@@ -291,9 +291,9 @@
     <widget class="QLabel" name="labelAlarma">
      <property name="geometry">
       <rect>
-       <x>50</x>
+       <x>40</x>
        <y>20</y>
-       <width>111</width>
+       <width>471</width>
        <height>41</height>
       </rect>
      </property>
@@ -307,8 +307,8 @@
      <rect>
       <x>10</x>
       <y>160</y>
-      <width>811</width>
-      <height>471</height>
+      <width>21</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -346,28 +346,11 @@
      </attribute>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButtonParameter">
-    <property name="geometry">
-     <rect>
-      <x>680</x>
-      <y>780</y>
-      <width>151</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(211, 215, 207);
-color: rgb(0, 0, 0);</string>
-    </property>
-    <property name="text">
-     <string>PARAMETROS</string>
-    </property>
-   </widget>
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>700</y>
+      <x>350</x>
+      <y>680</y>
       <width>241</width>
       <height>161</height>
      </rect>
@@ -430,8 +413,8 @@ color: rgb(0, 0, 0);</string>
    <widget class="QGroupBox" name="groupBox_5">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>180</y>
+      <x>350</x>
+      <y>200</y>
       <width>241</width>
       <height>161</height>
      </rect>
@@ -494,8 +477,8 @@ color: rgb(0, 0, 0);</string>
    <widget class="QPushButton" name="pushButtonResetAlarms">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>10</y>
+      <x>770</x>
+      <y>90</y>
       <width>131</width>
       <height>61</height>
      </rect>
@@ -506,6 +489,38 @@ background-color: rgb(85, 87, 83);</string>
     </property>
     <property name="text">
      <string>RESET ALARMA</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonMarcha">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>100</y>
+      <width>89</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(78, 154, 6);</string>
+    </property>
+    <property name="text">
+     <string>INICIAR</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonParada">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>100</y>
+      <width>101</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(204, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>PARAR</string>
     </property>
    </widget>
   </widget>
